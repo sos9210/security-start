@@ -13,11 +13,10 @@ spring:
     url: jdbc:h2:file:./h2-data
     username: sa
     password:
-
   mvc:
     view:
       prefix: /templates/
-      suffix: .mustache
+      suffix: .html
 
   jpa:
     hibernate:
