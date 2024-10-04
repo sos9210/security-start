@@ -2,9 +2,15 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>Index Page</title>
+    <title>Login Page</title>
 </head>
 <body>
-login 화면
+<h1>Login Page</h1>
+<form action="/login" method="POST">
+    <input type="text" name="username" placeholder="Username"/>
+    <input type="password" name="password" placeholder="Password"/>
+    <button>Login</button>
+</form>
+<a href="/join">Join</a>
 </body>
 </html>
