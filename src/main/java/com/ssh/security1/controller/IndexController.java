@@ -1,11 +1,16 @@
 package com.ssh.security1.controller;
 
+import com.ssh.security1.config.auth.PrincipalDetails;
 import com.ssh.security1.model.User;
 import com.ssh.security1.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +22,30 @@ public class IndexController {
     private final BCryptPasswordEncoder encoder;
     private final UserRepository userRepository;
 
+    @ResponseBody
+    @GetMapping("/test/login")      //2가지 방법으로 로그인 유저정보를 받아온다..
+    public String testLogin(Authentication authentication, @AuthenticationPrincipal PrincipalDetails userDetails) {
+        System.out.println("=================== /test/login =========================");
+        System.out.println("authentication.getPrincipal() = " + authentication.getPrincipal());
+        PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
+        System.out.println("principalDetails.getUsername() = " + principalDetails.getUsername());
+
+        System.out.println("userDetails.getUsername() = " + userDetails.getUser());
+        return "세션정보 확인하기";
+        
+    }
+    @ResponseBody
+    @GetMapping("/test/oauth/login") //2가지 방법으로 OAuth 유저정보를 받아온다..
+    public String testOAuthLogin(Authentication authentication, @AuthenticationPrincipal OAuth2User oauth) {
+        System.out.println("=================== /test/oauth/login =========================");
+        OAuth2User oauth2User = (OAuth2User) authentication.getPrincipal();
+        System.out.println("oauth2User.getAttributes() = " + oauth2User.getAttributes());
+
+        System.out.println("oauth.getAttributes()" + oauth.getAttributes());
+        return "oauth 세션정보 확인하기";
+
+    }
+        
     @GetMapping({"","/"})
     public String index() {
         //머스테치는 기본 폴더 resources..

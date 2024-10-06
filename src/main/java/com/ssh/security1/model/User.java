@@ -16,6 +16,12 @@ public class User {
     private String password;
     private String email;
     private String role;
+
+    //oauth 인증 provider
+    private String provider;
+    //oauthId (sub값)
+    private String providerId;
+
     @CreationTimestamp
     private Timestamp createDate;
 }

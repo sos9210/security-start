@@ -1,6 +1,7 @@
 package com.ssh.security1.config.auth;
 
 import com.ssh.security1.model.User;
+import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -12,6 +13,7 @@ import java.util.List;
 // 로그인을 진행이 완료되면 시큐리티 Session을 생성한다. (Security ContextHolder)
 // Objecc타입 => Authentication 타입 객체
 // Authentacation 안에 User정보가 있어야한다.
+@Data
 public class PrincipalDetails implements UserDetails {
     private User user;
 
