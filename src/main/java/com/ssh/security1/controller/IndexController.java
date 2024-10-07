@@ -52,8 +52,11 @@ public class IndexController {
         return "index";
     }
 
+
+    //일반로그인 , OAuth로그인 사용자 모두 PrincipalDetails 타입으로 받을 수 있다.
     @GetMapping("/user")
-    public String user() {
+    public String user(@AuthenticationPrincipal PrincipalDetails userDetails) {
+        System.out.println("principalDetails : " + userDetails.getUser());
         return "user";
     }
 

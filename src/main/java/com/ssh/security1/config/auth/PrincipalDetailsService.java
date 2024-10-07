@@ -18,6 +18,7 @@ public class PrincipalDetailsService implements UserDetailsService {
 
     private final UserRepository userRepository;
 
+    //메서드 종료 후 컨트롤러에서 @AuthenticationPrincipal 을 사용해서 유저 정보를 받을 수 있다
     // username 파라미터명과 변수명이 일치하거나
     // SecurityConfig 에서 usernameParameter 설정을 해줘야함.
     @Override

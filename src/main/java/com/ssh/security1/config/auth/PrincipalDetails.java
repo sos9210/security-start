@@ -4,20 +4,26 @@ import com.ssh.security1.model.User;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 //시큐리티가 /login 요청을 가로챈다.
 // 로그인을 진행이 완료되면 시큐리티 Session을 생성한다. (Security ContextHolder)
 // Objecc타입 => Authentication 타입 객체
 // Authentacation 안에 User정보가 있어야한다.
 @Data
-public class PrincipalDetails implements UserDetails {
+public class PrincipalDetails implements UserDetails, OAuth2User {
     private User user;
+    private Map<String,Object> attributes = new HashMap<>();
 
+    //일반로그인
     public PrincipalDetails(User user) {
+        this.user = user;
+    }
+    //OAuth로그인
+    public PrincipalDetails(User user,Map<String, Object> attributes) {
+        this.attributes = attributes;
         this.user = user;
     }
 
@@ -61,5 +67,15 @@ public class PrincipalDetails implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    @Override
+    public Map<String,Object> getAttribute(String name) {
+        return attributes;
+    }
+
+    @Override
+    public String getName() {
+        return null;
     }
 }
